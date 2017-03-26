@@ -3,18 +3,21 @@ FROM resty-dev
 RUN apt-get update -yq && \
     apt-get install -yq git-core
 
+# Wrong
 RUN luarocks install luafilesystem && \
     luarocks install penlight && \
     luarocks install say && \
+    luarocks install luasocket && \
+    luarocks install luasec && \
     luarocks install luassert && \
     luarocks install lua_cliargs && \
     luarocks install dkjson && \
     luarocks install luasystem && \
     luarocks install mediator_lua && \
     luarocks install lua-term && \
+    luarocks install sha1 && \
+    luarocks install md5 && \
     luarocks install busted
-
-ENV LUA_PATH "./src/?.lua;./src/?/?.lua;./src/?/init.lua;/usr/local/openresty/lualib/?/?.lua;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/lualib/?.lua;;"
 
 COPY ./tests /root
 COPY ./src /root/src

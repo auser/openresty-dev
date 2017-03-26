@@ -1,14 +1,21 @@
-require 'busted.runner'()
-local index = require("index")
+require "busted.runner"()
+local fakengx   = require("vendor.fakengx")
+local index     = require("pages.index")
 
 DEFAULT_URL = '/'
 
-describe("Sanity test", function()
-  it("should be true", function()
-    local res = index.run()
-    -- local res = ngx.location.capture(DEFAULT_URL,{method=ngx.HTTP_GET})
-    -- print(res.status)
-    -- print(res.body)
-    assert.are.equals(res, "Welcome")
+describe("pages", function()
+  describe('index', function()
+    before_each(function()
+      ngx = fakengx.new()
+    end)
+
+    it('sanity local thing', function()
+      index.run()
+      assert.same(ngx._exit, 200)
+      assert.equal(ngx._body, "Welcome\n")
+    end)
+
   end)
+
 end)
